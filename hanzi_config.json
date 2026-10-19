@@ -1,0 +1,233 @@
+{
+  "_说明": "写汉字任务执行器配置。带 null 的字段需在实机示教后填写。",
+  "trajectory_json": "~/hanzi_task/poem_trajectories.json",
+  "table_to_base": {
+    "_说明": "已废弃：原 workobject_tf.yaml 是'标定板'的变换，与田字格纸无关。现执行器改用实机三点标定（硬编码在 hanzi_executor.py 的 build_transform），此处仅留档。",
+    "实测三点标定_2026-10-06_1715": {
+      "白_cell0_table_m": [
+        0.457,
+        -0.27
+      ],
+      "白_cell0_base_mm": [
+        373.2,
+        -598.1
+      ],
+      "流_cell9_table_m": [
+        0.457,
+        0.47
+      ],
+      "流_cell9_base_mm": [
+        -370.2,
+        -603.1
+      ],
+      "河_cell10_table_m": [
+        0.349,
+        -0.27
+      ],
+      "河_cell10_base_mm": [
+        369.3,
+        -492.4
+      ]
+    },
+    "方向结论": "列(左右)=base x轴(白在+x,流在-x)；行(前后)=base y轴(白在-y,河在+y)。base_x≈-table_y，base_y≈-table_x。"
+  },
+  "tool_tcp": {
+    "tool_id": 1,
+    "x": 71.084,
+    "y": -233.762,
+    "z": 136.344
+  },
+  "pen_tcp_rpy_deg": {
+    "rx": 89.223,
+    "ry": 4.115,
+    "rz": 23.245
+  },
+  "z_heights_mm": {
+    "_说明": "base_link 下的绝对 Z 高度（毫米）。down=笔尖触纸，up=抬笔（暂按 down+40）。",
+    "down": -27.65,
+    "up": -8.85
+  },
+  "writing": {
+    "_说明": "speed=笔画内 MoveL 直线速度(mm/s)；approach=笔画间 MoveJ PTP 关节速度(deg/s)；lift=垂直抬笔速度(mm/s)。",
+    "speed_mm_s": 100,
+    "lift_speed_mm_s": 40.0,
+    "approach_speed_mm_s": 100,
+    "use_servo_stream": true,
+    "use_servo_goto": false,
+    "_说明2": "use_servo_stream=笔画内书写用ServoJ流(安全,快)；use_servo_goto=笔画间移动/抬笔用ServoJ关节插值(危险!绕过碰撞保护,默认false)",
+    "soft_landing": true,
+    "soft_ramp": true,
+    "ramp_width": 0.15,
+    "ramp_slowest": 0.5,
+    "soft_landing_max_len_mm": 8.0,
+    "corner_slow": true,
+    "corner_angle_deg": 60.0,
+    "corner_slow_factor": 2.0,
+    "inline_lift": false,
+    "lin_acc_pct": 3.0,
+    "joint_acc_pct": 3.0,
+    "servo_timing_mode": "fixed",
+    "servo_command_mode": "servoj",
+    "servo_period_s": 0.016,
+    "joint_servo_period_s": 0.016,
+    "stroke_ramp_time_s": 0.05,
+    "soft_landing_all_strokes": true,
+    "landing_time_s": 0.12,
+    "inline_release_mm": 2.0,
+    "inline_release_time_s": 0.048,
+    "servo_entry_max_jump_deg": 8.0,
+    "use_bezier_jump": true,
+    "bezier_jump_base_height_mm": 3.0,
+    "bezier_jump_height_ratio": 0.2,
+    "bezier_jump_min_height_mm": 6.0,
+    "bezier_jump_max_height_mm": 12.0,
+    "bezier_jump_speed_mm_s": 180.0,
+    "bezier_jump_ramp_time_s": 0.05
+  },
+  "flow": {
+    "_说明": "执行流程控制。stop_after_character=null 表示写全部20字（首个字验证已通过）。dip_ink=false 表示暂未接蘸墨流程（先跑通书写环）。",
+    "dip_ink": true,
+    "start_from_character": 0,
+    "stop_after_character": 20,
+    "skip_pickup": false,
+    "dip_every_n": 20,
+    "global_speed": 100,
+    "simplify_tol_mm": 0.0,
+    "corner_keep_deg": 40.0
+  },
+  "rx_by_column": [
+    89.223,
+    88.72
+  ],
+  "ink": {
+    "pickup_joint": [
+      66.323,
+      -63.966,
+      97.904,
+      -35.464,
+      109.059,
+      -0.391
+    ],
+    "dip_hover_joint": [
+      77.177,
+      -70.295,
+      100.514,
+      -31.948,
+      100.432,
+      -3.997
+    ],
+    "dip_depth_mm": 18.0,
+    "safe_high_joint": [
+      62.202,
+      -79.177,
+      80.017,
+      -6.532,
+      100.408,
+      -4.027
+    ],
+    "dip_touch_joint": [
+      77.178,
+      -68.855,
+      101.844,
+      -34.718,
+      100.43,
+      -3.996
+    ],
+    "pre_pickup_joint": [
+      38.903,
+      -91.109,
+      102.944,
+      -3.372,
+      75.458,
+      -3.988
+    ],
+    "dip_move_s": 0.6,
+    "dip_pause_s": 0.0,
+    "pickup_lift_mm": 220.0,
+    "pre_pickup_s": 0.9,
+    "dip_approach_s": 0.9,
+    "sleep_after_grasp_s": 3.0
+  },
+  "table_transform": {
+    "a00": -0.02234423,
+    "a01": -0.9759539,
+    "b0": 0.12185192,
+    "a10": -0.9475345,
+    "a11": -0.02877384,
+    "b1": -0.14636167
+  },
+  "z_offsets_mm": {
+    "0": 1.2,
+    "1": 1.2,
+    "2": 1.2,
+    "3": 1.2,
+    "4": 1.2,
+    "5": 1.9,
+    "6": 1.9,
+    "7": 1.9,
+    "8": 2.4,
+    "9": 3.9,
+    "10": -1.45,
+    "11": -1.45,
+    "12": -1.45,
+    "13": -1.45,
+    "14": -1.45,
+    "15": -0.1,
+    "16": -0.1,
+    "17": -0.1,
+    "18": 0.4,
+    "19": 0.4,
+    "20": 1.2,
+    "21": 1.2,
+    "22": 1.2,
+    "23": 1.2,
+    "24": 1.2,
+    "25": 1.9,
+    "26": 1.9,
+    "27": 1.9,
+    "28": 2.4,
+    "29": 2.4,
+    "30": -1.45,
+    "31": -1.45,
+    "32": -1.45,
+    "33": -1.45,
+    "34": -1.45,
+    "35": -0.1,
+    "36": -0.1,
+    "37": -0.1,
+    "38": 0.4,
+    "39": 0.4
+  },
+  "poems": {
+    "1": "~/hanzi_task/poem1_trajectories.json",
+    "2": "~/hanzi_task/poem2_trajectories.json",
+    "3": "~/hanzi_task/poem3_trajectories.json"
+  },
+  "_poems_说明": {
+    "1": "一去二三里，烟村四五家。亭台六七座，八九十枝花",
+    "2": "松下问童子，言师采药去。只在此山中，云深不知处",
+    "3": "白日依山尽，黄河入海流。欲穷千里目，更上一层楼"
+  },
+  "_z_offsets_说明": "键=ai(0起)，ai与ai+20为两首同位置。正值=抬高(更浅)，负值=压低(更深)。相对 z_heights_mm.down 的偏移(mm)。",
+  "posture_by_char": {
+    "17": {
+      "rx": 89.856,
+      "ry": 0.919,
+      "rz": 3.596
+    },
+    "18": {
+      "rx": 89.856,
+      "ry": 0.919,
+      "rz": 3.596
+    },
+    "19": {
+      "rx": 89.856,
+      "ry": 0.919,
+      "rz": 3.596
+    }
+  },
+  "_posture_by_char_说明": "键=ai(0起)。这些字用指定姿态（其余字用 rx_by_column + pen_tcp_rpy_deg）。第18~20字是用户人工在右侧调好、不触发逆解翻转的姿态。",
+  "cpp_executor": {
+    "dip_depth_adjust_mm": -4.0
+  }
+}
